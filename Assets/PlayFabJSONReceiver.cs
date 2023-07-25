@@ -5,6 +5,12 @@ public class PlayFabJSONReceiver : MonoBehaviour
 {
     private const string TitleId = "YOUR_TITLE_ID";
     private const string SecretKey = "YOUR_SECRET_KEY";
+    private void OnEnable() {
+        EventManager.Instance.OnLogin.AddListener(GetData);
+    }
+    private void OnDisable() {
+        
+    }
     public void Update()
     {
         if(Input.GetKeyDown(KeyCode.G))
@@ -24,14 +30,15 @@ public class PlayFabJSONReceiver : MonoBehaviour
         // Send the request to get user data
         PlayFabClientAPI.GetUserData(request, OnSuccess, OnError);
     }
-    public Payload reciverData;
+    public Payload receiverData;
     private void OnSuccess(GetUserDataResult result)
     {
         // Check if the user data contains the JSON payload
         if (result.Data.TryGetValue("JSONPayload", out var jsonData))
         {
             // Parse the JSON payload
-            reciverData = JsonUtility.FromJson<Payload>(jsonData.Value);
+            receiverData = JsonUtility.FromJson<Payload>(jsonData.Value);
+            EventManager.Instance.OnreceivePayload.Invoke(receiverData);
             Debug.Log("JSON Payload:");
         }
         else

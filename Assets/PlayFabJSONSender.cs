@@ -8,6 +8,11 @@ public class PlayFabJSONSender : MonoBehaviour
 
     private const string TitleId = "YOUR_TITLE_ID";
     private const string SecretKey = "YOUR_SECRET_KEY";
+    private void OnEnable() {
+    }
+    private void OnDisable() {
+        
+    }
     public void Update()
     {
         if(Input.GetKeyDown(KeyCode.S))
@@ -38,6 +43,7 @@ public class PlayFabJSONSender : MonoBehaviour
 
     private static void OnSuccess(UpdateUserDataResult result)
     {
+        EventManager.Instance.OnSendPayload.Invoke(result);
         Debug.Log("Request succeeded: " + result.ToJson());
     }
 
@@ -46,23 +52,3 @@ public class PlayFabJSONSender : MonoBehaviour
         Debug.LogError("Request failed: " + error.GenerateErrorReport());
     }
 }
-[System.Serializable]
-    public class Payload
-    {
-        public List<Title> titles;
-        [System.Serializable]
-        public class Title
-        {
-            public string titleName;
-            public string website;
-            public List<Field> fields;
-            [TextArea(3,6)]
-            public string note;
-        }
-        [System.Serializable]
-        public class Field
-        {
-            public string name;
-            public string value;
-        }
-    }

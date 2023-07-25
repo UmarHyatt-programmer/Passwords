@@ -68,6 +68,7 @@ public class PlayFabAuthenticationManager : MonoBehaviour
     }
     private void OnLoginSuccess(LoginResult result)
     {
+        EventManager.Instance.OnLogin.Invoke();
         Debug.Log("Login successful!");
 
         // You can access the PlayFab session ticket or other player data from the result
@@ -102,6 +103,7 @@ public class PlayFabAuthenticationManager : MonoBehaviour
 
     void OnSignUpSuccess(RegisterPlayFabUserResult result)
     {
+        EventManager.Instance.OnSignup.Invoke();
         signupPanel.SetActive(false);
         // User sign-up successful, handle the response
     }
