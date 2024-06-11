@@ -23,7 +23,7 @@ public class ItemObject : MonoBehaviour
     }
     public void OnButtonClick()
     {
-
+        UIManager.Instance.ActiveDetailPanel(title);
     }
     public void OnToggleClick(bool select)
     {

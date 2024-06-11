@@ -1,14 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ommy.SaveData;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
+    public void Awake()
+    {
+      if(Instance==null)Instance=this;
+    }
     public Payload payload;
     private void OnEnable() 
     {
       EventManager.Instance.OnreceivePayload.AddListener(OnreceivePayload);
+      EventManager.Instance.OnPayloadUpdate.AddListener((p)=>SavePayLoad());
+    }
+    public void Start()
+    {
+      LoadPayLoad();
     }
     private void OnDisable() 
     {
@@ -18,6 +29,23 @@ public class DataManager : MonoBehaviour
     {
       this.payload=_payload;
       EventManager.Instance.OnPayloadUpdate.Invoke(_payload);
+    }
+    public void AddTitle(Payload.Title title)
+    {
+      payload.titles.Add(title);
+      SavePayLoad();
+    }
+    public void SavePayLoad()
+    {
+      SaveData.Instance.payload=payload;
+      SaveSystem.SaveProgress();
+      //EventManager.Instance.OnPayloadUpdate.Invoke(SaveData.Instance.payload);
+    }
+    public void LoadPayLoad()
+    {
+      SaveSystem.LoadProgress();
+      payload=SaveData.Instance.payload;
+      EventManager.Instance.OnPayloadUpdate.Invoke(SaveData.Instance.payload);
     }
 }
 [System.Serializable]
@@ -29,7 +57,7 @@ public class Payload
     {
         public string titleName;
         public string website;
-        public List<Field> fields;
+        public string password;
         [TextArea(3, 6)]
         public string note;
     }

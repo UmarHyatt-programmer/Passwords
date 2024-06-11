@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     {
         if(Instance==null)Instance=this;
     }
-
+    public InputField website,userName,password,note;
     public ItemObject itemPrefab;
     public Transform itemParent;
     public GameObject passwordsPanel,loginPanel,signupPanel,newPasswordPanel,detailPasswordPanel;
@@ -54,10 +54,34 @@ public class UIManager : MonoBehaviour
             DataManager.Instance.payload.titles.Remove(item.title);
             Destroy(item.gameObject);
         }
+        foreach (var item in itemObjects)
+        {
+            item.selectToggle.gameObject.SetActive(false);
+        }
+        EventManager.Instance.OnPayloadUpdate.Invoke(DataManager.Instance.payload);
     }
     public void AddNewPasswordButton()
     {
         newPasswordPanel.SetActive(true);
+    }
+    public void SavePasswordButton()
+    {
+        Payload.Title title = new Payload.Title();
+        title.titleName = userName.text;
+        title.website = website.text;
+        title.password = password.text;
+        title.note = note.text;
+        print(title.titleName);
+        DataManager.Instance.AddTitle(title);
+        UpdatePayloadUI(DataManager.Instance.payload);
+        // use this fuction when press done button of save password panel and save data through data manager
+        //DataManager.Instance.payload
+    }
+    public DetailPanelObject detailPanelObject;
+    public void ActiveDetailPanel(Payload.Title title)
+    {
+        detailPanelObject.gameObject.SetActive(true);
+        detailPanelObject.MapDetails(title);
     }
     public void OnLogin()
     {
@@ -75,7 +99,4 @@ public class UIManager : MonoBehaviour
            // return;
         }
     }
-
-
-
 }
