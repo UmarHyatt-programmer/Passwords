@@ -90,6 +90,13 @@ public class UIManager : MonoBehaviour
     }
     public void UpdatePayloadUI(Payload _payload)
     {
+        foreach (var item in itemObjects)
+        {
+            //itemObjects.Remove(item);
+            Destroy(item.gameObject);
+        }
+        itemObjects=new List<ItemObject>();
+        //itemObjects.RemoveAll();
         foreach (var item in _payload.titles)
         {
             ItemObject obj= Instantiate(itemPrefab,itemParent);

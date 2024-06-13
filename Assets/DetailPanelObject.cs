@@ -23,6 +23,7 @@ public class DetailPanelObject : MonoBehaviour
         title.note=note.text;
         title.titleName=username.text;
         DataManager.Instance.SavePayLoad();
+        UIManager.Instance.UpdatePayloadUI(DataManager.Instance.payload);
     }
     public void MapDetails(Payload.Title _title)
     {
