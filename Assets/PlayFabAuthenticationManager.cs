@@ -3,6 +3,8 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.UI;
 using Unity;
+using AppleAuth.Interfaces;
+using Google;
 public class PlayFabAuthenticationManager : MonoBehaviour
 {
     private static PlayFabAuthenticationManager instance;
@@ -38,6 +40,23 @@ public class PlayFabAuthenticationManager : MonoBehaviour
         {
             AutoLogin();
         }
+    }
+    public void LoginWithGoogle(GoogleSignInUser googleSignInUser)
+    {
+        var request = new LoginWithGoogleAccountRequest
+        {
+            CreateAccount=true,
+            
+        };
+        PlayFabClientAPI.LoginWithGoogleAccount(request, OnLoginSuccess, OnLoginFailure);
+    }
+    public void LoginWithApple(ICredential credential)
+    {
+        var request = new LoginWithAppleRequest
+        {
+
+        };
+        PlayFabClientAPI.LoginWithApple(request, OnLoginSuccess, OnLoginFailure);
     }
     public void AutoLogin()
     {
