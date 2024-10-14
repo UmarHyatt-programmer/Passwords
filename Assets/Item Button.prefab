@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 3060815264360185874}
   - component: {fileID: 3060815264360185875}
   m_Layer: 5
-  m_Name: Text name
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,14 +457,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fee0f188649e412d819dedc8f8a5fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 3060815264360185875}
+  titleTxt: {fileID: 3060815264360185875}
+  userName: {fileID: 1204388363035841794}
   website: {fileID: 1204388363035841794}
   selectToggle: {fileID: 2107108208}
   itemButton: {fileID: 3060815264582111944}
   title:
-    titleName: 
-    website: 
+    timeModified: 
+    title: 
+    userName: 
     password: 
+    website: 
     note: 
 --- !u!1 &8222824595640483509
 GameObject:
@@ -478,7 +481,7 @@ GameObject:
   - component: {fileID: 708808512744717647}
   - component: {fileID: 1204388363035841794}
   m_Layer: 5
-  m_Name: Text website
+  m_Name: UserName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

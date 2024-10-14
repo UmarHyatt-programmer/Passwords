@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     {
         if(Instance==null)Instance=this;
     }
-    public InputField website,userName,password,note;
+    public InputField titleInputField,website,userName,password,note;
     public ItemObject itemPrefab;
     public Transform itemParent;
     public GameObject passwordsPanel,loginPanel,signupPanel,newPasswordPanel,detailPasswordPanel;
@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
         editButton.SetActive(false);
         foreach (var item in itemObjects)
         {
+            item.selectToggle.isOn=false;
             item.selectToggle.gameObject.SetActive(true);
         }
     }
@@ -67,11 +68,12 @@ public class UIManager : MonoBehaviour
     public void SavePasswordButton()
     {
         Payload.Title title = new Payload.Title();
-        title.titleName = userName.text;
-        title.website = website.text;
+        title.title = titleInputField.text;
+        title.userName = userName.text;
         title.password = password.text;
         title.note = note.text;
-        print(title.titleName);
+        title.timeModified = System.DateTime.Now.ToString();
+        Debug.Log("Time Modified: " + title.timeModified);
         DataManager.Instance.AddTitle(title);
         UpdatePayloadUI(DataManager.Instance.payload);
         // use this fuction when press done button of save password panel and save data through data manager

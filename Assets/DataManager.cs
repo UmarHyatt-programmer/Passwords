@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ommy.SaveData;
@@ -13,7 +14,7 @@ public class DataManager : MonoBehaviour
     public Payload payload;
     private void OnEnable() 
     {
-      EventManager.Instance.OnreceivePayload.AddListener(OnreceivePayload);
+      EventManager.Instance.OnreceivePayload.AddListener(OnReceivePayload);
       EventManager.Instance.OnPayloadUpdate.AddListener((p)=>SavePayLoad());
     }
     public void Start()
@@ -22,9 +23,9 @@ public class DataManager : MonoBehaviour
     }
     private void OnDisable() 
     {
-      EventManager.Instance.OnreceivePayload.RemoveListener(OnreceivePayload);
+      EventManager.Instance.OnreceivePayload.RemoveListener(OnReceivePayload);
     }
-    public void OnreceivePayload(Payload _payload)
+    public void OnReceivePayload(Payload _payload)
     {
       this.payload=_payload;
       EventManager.Instance.OnPayloadUpdate.Invoke(_payload);
@@ -54,8 +55,9 @@ public class Payload
     [System.Serializable]
     public class Title
     {
-        public string titleName;
-        public string website;
+        public string timeModified;
+        public string title;
+        public string userName;
         public string password;
         [TextArea(3, 6)]
         public string note;
