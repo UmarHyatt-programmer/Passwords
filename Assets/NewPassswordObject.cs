@@ -9,12 +9,12 @@ public class NewPassswordObject : MonoBehaviour
     public Payload.Title title;
     public NewField newFieldPrefab;
     public Transform newFieldParent;
-    public InputField website,username,password,note;
+    public InputField titleInputField,username,password,note;
     public List<NewField> newFields;
 
     public void DoneNewPasswordButton()
     {
-        title.website=website.text;
+        title.title=titleInputField.text;
         title.note=note.text;
     }
     public void AddNewFieldButton()
